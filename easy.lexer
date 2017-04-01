@@ -1,0 +1,81 @@
+%options flex case-insensitive
+
+%%
+
+[\\r\\n]+                        return 'NL';
+\s+                             /* skip whitespace */
+\#[^\r\n]*                      /* skip comments */
+"mover para"                                return 'CMD_MOVER_PARA';
+"marque aqui"                               return 'CMD_MARQUE_AQUI';
+"desmarque"				                    return 'CMD_DESMARQUE';
+"desenhe uma linha ate"                     return 'CMD_DESENHE_LINHA';
+"escreva"                                   return 'CMD_ESCREVA';
+"desenhe um circulo com raio"               return 'CMD_DESENHE_CIRC';
+"memorize"                                  return 'CMD_MEMORIZE';
+"em"                                        return 'CMD_MEMORIZE_EM';
+"desenhe um triangulo passando por"         return 'CMD_DESENHE_TRI';
+"mude a espessura da linha da caneta para"  return 'CMD_ESPESSURA_CA';
+"mude o estilo da linha da caneta para"     return 'CMD_ESTILO_CA';
+"mude a cor da caneta para"                 return 'CMD_COR_CA';
+"desenhe um poligono passando por"          return 'CMD_POLIGONO';
+"desenhe um quadrilatero passando por"      return 'CMD_QUADRI';
+"escrever"                                  return 'CMD_ESCREVER';
+"saida"                                     return 'CMD_SAIDA';
+
+"vire para o"                               return 'CMD_MOV';
+"norte"                                     return 'NORTE';
+"sul"                                       return 'SUL';
+"leste"                                     return 'LESTE';
+"oeste"                                     return 'OESTE';
+
+"ha uma marca aqui"                         return 'CMD_MARCA_AQUI';
+"nao ha uma marca aqui"                     return 'CMD_NMARCA_AQUI';
+"ha uma marca em"                           return 'CMD_MARCA_EM';
+"nao ha uma marca em"                       return 'CMD_NMARCA_EM';
+
+\"[^\"]*\"|\'[^\']*\'	                    return 'STRING';
+"*"                          				return '*';
+"/"                             			return '/';
+"-"                             			return '-';
+"--"                                        return '--';
+"+"                             			return '+';
+"("                             			return '(';
+")"                             			return ')';
+"{"                             			return '{';
+"}"                             			return '}';
+","						        			return ',';
+"."						        			return '.';
+";"                             			return ';';
+
+">"						        			return '>';
+"<"						        			return '<';
+">="						        		return '>=';
+"<="						        		return '<=';
+"=="                            			return '==';
+"="                   	        			return '=';
+"~"                   	        			return '~';
+"or"                   	        			return 'CONJUNCAO';
+"and"                 	        			return 'DISJUNCAO';
+
+
+
+"true"                                      return 'TRUE';  
+"false"                                     return 'FALSE';
+
+"se"							            return 'SE';
+"entao"						                return 'ENTAO';
+"senao"						                return 'SENAO';
+":"                                         return ':';
+ 
+"para contador de"                          return 'ENQUANTO';
+"novo comando"                              return 'COMANDO';
+"execultar comando"                         return 'CMD_EXE';
+"ate"                                       return 'ATE';
+"faca"                                      return 'FACA';
+
+
+
+\d*\.\d+				                    return 'NUMERO';
+[1-9][\d]*|[0]+			                    return 'NUMERO';
+<<EOF>>                                     return 'EOF';
+.                                           return 'INVALID';
